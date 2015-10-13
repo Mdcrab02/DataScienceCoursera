@@ -1,7 +1,6 @@
 ---
 title: "HelloWorld"
 author: Mdcrab02
-output: html_document
 ---
 ## This is a markdown file
 

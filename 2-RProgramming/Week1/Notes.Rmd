@@ -1,0 +1,151 @@
+---
+title: "Notes"
+output: html_document
+---
+Just a few notes from the first week using R Markdown and Knitr to get some more practice with the two.
+ 
+Assignment
+-
+Assigns the value 4 to the variable x
+```{r}
+x <- 4
+x
+```
+
+Vectors
+-
+concatonates the following and assigns it to A.
+keep in mind concatonate has implicit coersion which will
+  automatically homogenize the data types of all the items
+```{r}
+A <- c(1,2,3,"cat",FALSE)
+```
+
+Here each item becomes a string
+```{r}
+A
+```
+
+You can also create a homogenous vector with the vector command
+```{r}
+B <- vector("numeric", length=10)
+B
+```
+
+You can explicity convert the type of the entire vector with as.function notation like in the following example
+```{r}
+C <- as.logical(B)
+C
+```
+```{r}
+D <- as.character(B)
+D
+```
+
+Matrices
+-
+You create a matrix with the matrix function
+```{r}
+E <- matrix(1:6, nrow = 2, ncol = 3)
+E
+```
+The matrix is filled out in order based on your dimensions.  The function will first populate the matrix along i = 1 from j = 1 to n then move on to i=2 and so forth.
+You can also create a matrix by first creating the vector and then assigning dimension attributes to that vector
+```{r}
+F <- 1:10
+dim(F) <- c(2,5)
+F
+```
+Yet another way to create a matrix is by directly binding vectors using cbind() and rbind() which will arrange the matrix in such a way that the first element passed into the function is either i=1 (with cbind()) or j=1 (with rbind())
+```{r}
+x <- 1:3
+y <- 10:12
+cbind(x,y)
+rbind(x,y)
+```
+Notice that here rbind() creates the transpose of the vector created with cbind()
+
+You can check the dimensions of the matrix with the dim() function where the output is [ i, j ]
+```{r}
+dim(E)
+```
+
+Factors
+-
+Factors represent categorical data with or without an implied order.  With order would be something like ordinal data (grades, opinions), and without order would be nominal data (zip code, gender).  Factors are used by modelling functions like lm() where factors are self-describing and assigning label data is easy for any mining you may do.
+```{r}
+G <- factor(c("yes","yes","no","yes","no"))
+G
+```
+This now produces the factor with the values we passed in.  By looking at the factor G, the console will tell us the different levels in the data.
+
+To create a quick frequency for each level in the data, use the table function
+```{r}
+table(G)
+```
+
+if we use the unclass function, R will remove the classes on each item in the factor and show you how R sees the data
+```{r}
+unclass(G)
+```
+
+Implicitly, R associates the order of levels alphabetically, so depending on your model you may want to explicitly establish the order of the levels to set your baseline level
+```{r}
+H <- factor(c("yes","yes","no","yes","no"), levels = c("yes","no"))
+H
+```
+See how now R lists the levels in the order (yes, no) instead of (no, yes) like it did before on factor G?
+
+Missing Values
+-
+NaN: not a number
+NA: a missing item for an associated class.  A NA values is not always a NaN value
+```{r}
+I <- c(1, 2, NA, 10, 3)
+is.na(I)
+is.nan(I)
+```
+
+
+Data Frames
+-
+These are the key data type in R and are used to store tabular data.  It is a special type of list.  Think of what a CSV looks like.
+```{r}
+#read.table() read in the table
+#read.csv() read in the CSV file
+```
+You can force convert this data into a matrix
+```{r}
+#data.matrix() converts the data into a matrix
+```
+You can also create a simple data frame to test out some of the associated functions
+```{r}
+J <- data.frame(model = c("cruze", "regal","camaro","pinto"), color = c("blue","red","green","yellow"))
+J
+```
+
+Names
+-
+All R objects can have names, which increases readability
+```{r}
+K <- 1:3
+names(K)
+names(K) <- c("foo","bar","norf")
+K
+names(K)
+```
+See how each column now has a name associated with it?  This can help with the readability of your code and if you're making your own data frames.
+
+You can also have lists with names
+```{r}
+L <- list(a=1,b=2,c=3)
+L
+```
+
+You can also have matrices with names
+```{r}
+M <- matrix(1:4, nrow=2, ncol=2)
+dimnames(M) <- list( c("a","b"), c("c","d") )
+M
+```
+
